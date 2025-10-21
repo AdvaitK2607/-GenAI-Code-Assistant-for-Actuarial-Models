@@ -162,6 +162,37 @@ with st.sidebar:
     )
     
     st.markdown("---")
+
+    # --- CHAT HISTORY ---
+    st.header("📜 Chat History")
+    if not st.session_state.chat_history:
+        st.info("Your previous requests will appear here.")
+    else:
+        # Function to reload a history item into the main view
+        def load_history_item(item_index):
+            history_item = st.session_state.chat_history[item_index]
+            st.session_state["generated_code"] = history_item["code"]
+            st.session_state["code_language"] = history_item["language"]
+            # Reset analyses so they are regenerated for the reloaded code
+            st.session_state["code_explanation"] = None
+            st.session_state["complexity_analysis"] = None
+            st.session_state["unit_tests"] = None
+            st.session_state["dockerfile"] = None
+
+        # Display history items in reverse order (newest on top)
+        for i, item in enumerate(reversed(st.session_state.chat_history)):
+            # Use an expander to show a preview of the request
+            with st.expander(f"#{len(st.session_state.chat_history) - i}: {item['prompt'][:40]}"):
+                st.code(item['code'], language=item['language'])
+                # Button to reload the full result
+                st.button(
+                    "Reload Result",
+                    key=f"history_{i}",
+                    on_click=load_history_item,
+                    args=(len(st.session_state.chat_history) - 1 - i,) # Pass original index
+                )
+    
+    st.markdown("---")
     st.header("💡 Project Info")
     st.info(
         "This is an advanced GenAI Code Assistant. "
@@ -233,8 +264,12 @@ if generate_button and user_prompt:
             if detected_language:
                 st.session_state["code_language"] = detected_language.strip().lower()
 
-            # Add to history
-            st.session_state.chat_history.append({"prompt": user_prompt, "code": generated_code})
+            # Add to history, now including the language
+            st.session_state.chat_history.append({
+                "prompt": user_prompt, 
+                "code": generated_code,
+                "language": st.session_state.get("code_language", "plaintext")
+            })
         else:
             st.session_state["generated_code"] = "" # Clear previous code if generation fails
 
