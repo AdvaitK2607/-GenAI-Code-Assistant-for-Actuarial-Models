@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GenAI Analysis Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>⚙️ GenAI Studio</h1>
+            <nav>
+                <h3>Settings</h3>
+                <label for="modelSelect">Select Model</label>
+                <select id="modelSelect">
+                    <option>gemini-2.5-flash-preview-09-2025</option>
+                    <option>gemini-2.5-flash-lite-preview-09-2025</option>
+                    <option>gemini-2.5-flash-image</option>
+                    <option>gemini-pro-latest</option>
+                </select>
+
+                <h3>Recent Analyses</h3>
+                <div id="historyList" class="history"></div>
+
+                <h3>About Us</h3>
+                <p class="about-text">
+                    <strong>GenAI Analysis Studio</strong> helps developers and students
+                    turn any code or problem statement into clean explanations, structured code,
+                    and precise complexity insights — powered by Gemini AI.
+                </p>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main">
+            <header class="header">
+                <h2>🔍 GenAI Analysis Studio</h2>
+                <p>Your AI-powered coding companion for instant clarity and structure.</p>
+            </header>
+
+            <section class="input-panel">
+                <textarea id="prompt" placeholder="Enter your problem statement, concept, or code here..."></textarea>
+                <input type="file" id="fileInput" multiple>
+                <div class="actions">
+                    <button id="evaluateBtn">⚡ Run Analysis</button>
+                    <button id="clearBtn" class="secondary">🧹 Clear</button>
+                </div>
+            </section>
+
+            <section class="results">
+                <div class="tab-buttons">
+                    <button class="tab active" data-tab="explanation">💡 Explanation</button>
+                    <button class="tab" data-tab="code">🧠 Code</button>
+                    <button class="tab" data-tab="complexity">📈 Complexity</button>
+                </div>
+
+                <div id="outputContainer">
+                    <div id="loading" class="loading hidden">Analyzing... ⏳</div>
+                    <div id="explanation" class="tab-content active"></div>
+                    <div id="code" class="tab-content"></div>
+                    <div id="complexity" class="tab-content"></div>
+                </div>
+            </section>
+            <footer class="footer">
+                © 2025 <span>GenAI Analysis Studio</span> — powered by Gemini AI
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
