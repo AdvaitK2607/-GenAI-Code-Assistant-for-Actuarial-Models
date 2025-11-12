@@ -3,7 +3,6 @@
 > **Modern AI-Powered Code Analysis Dashboard**  
 > Turn any problem statement or code snippet into **structured explanations, clean code, and time & space complexity** insights — powered by **Google Gemini AI**.
 
-![GenAI Analysis Studio Banner](assets/preview.png)
 
 ---
 
