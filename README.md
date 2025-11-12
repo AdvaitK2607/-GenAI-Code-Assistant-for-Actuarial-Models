@@ -15,7 +15,7 @@ It allows you to **upload code or text**, select an AI model, and instantly get:
 - 🧠 *Generated & optimized code*  
 - 📈 *Time & Space complexity analysis*
 
-Built with a **VS Code + Notion + ChatGPT-inspired UI**, this project demonstrates **design sophistication, usability, and production-level polish** — ideal for showcasing front-end, API integration, and AI deployment skills.
+
 
 ---
 
@@ -24,11 +24,8 @@ Built with a **VS Code + Notion + ChatGPT-inspired UI**, this project demonstrat
 ### 🎨 Frontend
 - Responsive **glassmorphic UI** (HTML + CSS + JS)
 - Tabs for **Explanation**, **Code**, and **Complexity**
-- Animated **buttons, hover effects, and transitions**
 - **History panel** for past analyses (stored locally)
 - Supports **file uploads** (PDF, TXT, CSV)
-- Dark theme with gradient accents and glowing highlights
-- Built for recruiters — sleek, minimal, professional
 
 ### 🤖 Backend
 - Flask server using **Google Gemini API**
