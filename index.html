@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>GenAI Analysis Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -13,63 +14,157 @@
     <div class="app-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <h1>⚙️ GenAI Studio</h1>
-            <nav>
-                <h3>Settings</h3>
-                <label for="modelSelect">Select Model</label>
-                <select id="modelSelect">
-                    <option>gemini-2.5-flash-preview-09-2025</option>
-                    <option>gemini-2.5-flash-lite-preview-09-2025</option>
-                    <option>gemini-2.5-flash-image</option>
-                    <option>gemini-pro-latest</option>
-                </select>
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>GenAI Studio</h1>
+                </div>
+                <p class="tagline">Intelligent Code Analysis</p>
+            </div>
 
-                <h3>Recent Analyses</h3>
-                <div id="historyList" class="history"></div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3><i class="fas fa-cog"></i> Model Settings</h3>
+                    <label for="modelSelect">Select AI Model</label>
+                    <div class="select-wrapper">
+                        <select id="modelSelect">
+                            <option>gemini-2.5-flash-preview-09-2025</option>
+                            <option>gemini-2.5-flash-lite-preview-09-2025</option>
+                            <option>gemini-2.5-flash-image</option>
+                            <option>gemini-pro-latest</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
 
-                <h3>About Us</h3>
-                <p class="about-text">
-                    <strong>GenAI Analysis Studio</strong> helps developers and students
-                    turn any code or problem statement into clean explanations, structured code,
-                    and precise complexity insights — powered by Gemini AI.
-                </p>
+                <div class="nav-section">
+                    <h3><i class="fas fa-history"></i> Recent Analyses</h3>
+                    <div id="historyList" class="history">
+                        <div class="history-empty">No analyses yet</div>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <h3><i class="fas fa-info-circle"></i> About</h3>
+                    <p class="about-text">
+                        <strong>GenAI Analysis Studio</strong> helps developers and students
+                        turn any code or problem statement into clean explanations, structured code,
+                        and precise complexity insights — powered by Gemini AI.
+                    </p>
+                </div>
             </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="username">Welcome, Developer</span>
+                        <span class="user-status">Ready to analyze</span>
+                    </div>
+                </div>
+            </div>
         </aside>
 
         <!-- Main content -->
         <main class="main">
             <header class="header">
-                <h2>🔍 GenAI Analysis Studio</h2>
-                <p>Your AI-powered coding companion for instant clarity and structure.</p>
+                <div class="header-content">
+                    <h2><i class="fas fa-magic"></i> GenAI Analysis Studio</h2>
+                    <p>Your AI-powered coding companion for instant clarity and structure.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" title="Settings">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                    <button class="btn-icon" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
             </header>
 
             <section class="input-panel">
-                <textarea id="prompt" placeholder="Enter your problem statement, concept, or code here..."></textarea>
-                <input type="file" id="fileInput" multiple>
+                <div class="panel-header">
+                    <h3><i class="fas fa-code"></i> Input Panel</h3>
+                    <span class="char-count">0 characters</span>
+                </div>
+                <div class="textarea-container">
+                    <textarea id="prompt"
+                        placeholder="Enter your problem statement, concept, or code here..."></textarea>
+                    <div class="textarea-actions">
+                        <button class="btn-small" id="formatBtn">
+                            <i class="fas fa-indent"></i> Format
+                        </button>
+                    </div>
+                </div>
+
+                <div class="file-upload-container">
+                    <label for="fileInput" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Attach Files</span>
+                    </label>
+                    <input type="file" id="fileInput" multiple>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+
                 <div class="actions">
-                    <button id="evaluateBtn">⚡ Run Analysis</button>
-                    <button id="clearBtn" class="secondary">🧹 Clear</button>
+                    <button id="evaluateBtn" class="btn-primary">
+                        <i class="fas fa-bolt"></i>
+                        <span>Run Analysis</span>
+                    </button>
+                    <button id="clearBtn" class="btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        <span>Clear All</span>
+                    </button>
                 </div>
             </section>
 
             <section class="results">
+                <div class="results-header">
+                    <h3><i class="fas fa-chart-bar"></i> Analysis Results</h3>
+                    <div class="result-actions">
+                        <button class="btn-small" id="exportBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+
                 <div class="tab-buttons">
-                    <button class="tab active" data-tab="explanation">💡 Explanation</button>
-                    <button class="tab" data-tab="code">🧠 Code</button>
-                    <button class="tab" data-tab="complexity">📈 Complexity</button>
+                    <button class="tab active" data-tab="explanation">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Explanation</span>
+                    </button>
+                    <button class="tab" data-tab="code">
+                        <i class="fas fa-code"></i>
+                        <span>Code</span>
+                    </button>
+                    <button class="tab" data-tab="complexity">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Complexity</span>
+                    </button>
                 </div>
 
                 <div id="outputContainer">
-                    <div id="loading" class="loading hidden">Analyzing... ⏳</div>
+                    <div id="loading" class="loading hidden">
+                        <div class="loading-spinner"></div>
+                        <p>Analyzing your content... ⏳</p>
+                    </div>
                     <div id="explanation" class="tab-content active"></div>
                     <div id="code" class="tab-content"></div>
                     <div id="complexity" class="tab-content"></div>
                 </div>
             </section>
-            <footer class="footer">
-                © 2025 <span>GenAI Analysis Studio</span> — powered by Gemini AI
-            </footer>
 
+            <footer class="footer">
+                <div class="footer-content">
+                    <span>© 2025 <strong>GenAI Analysis Studio</strong></span>
+                    <span class="divider">|</span>
+                    <span>Powered by Gemini AI</span>
+                    <span class="divider">|</span>
+                    <span>v2.1.0</span>
+                </div>
+            </footer>
         </main>
     </div>
 
