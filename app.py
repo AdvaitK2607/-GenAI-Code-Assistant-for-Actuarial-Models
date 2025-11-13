@@ -92,7 +92,7 @@ def build_prompt(user_prompt: str, files_ctx: List[Tuple[str, str]]) -> str:
     base_prompt = f"""
 Analyze the following request and provide a comprehensive response.
 Consider the context, provide insights, explanations, and any relevant information.
-
+If a file is uploaded, extract the content fully and give detailed analysis based on that content.
 USER REQUEST:
 {user_prompt}
 """.strip()
@@ -113,9 +113,11 @@ Please format the response EXACTLY in this structure:
 
 ### Explanation
 Provide a clear and concise explanation of the logic or concept in simple language.
+if a file is provided, try to extract as musch relevant information as possible from the file.
 
 ### Code
 Provide clean and well-formatted code. Avoid unnecessary comments and keep it readable.
+if a file is provided, try to extract as much relevant information as possible from the file.
 
 ### Time & Space Complexity
 - Time Complexity: Big-O notation with brief reasoning.
